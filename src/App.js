@@ -1,17 +1,12 @@
-import './App.css';
+import React from 'react'
+import { Header } from './components/Header';
 
-function App() {
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-       
-        <p>
-          Hello world!
-        </p>
-       
-      </header>
+    <div className="w-screen h-auto flex flex-col">
+      <Header />
     </div>
-  );
+  )
 }
 
 export default App;
