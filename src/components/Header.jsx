@@ -19,12 +19,17 @@ const Header = () => {
   const [{user}, dispatch] = useStateValue();
 
   const login = async () => {
-    const {user : {refreshToken, providerData}} = await signInWithPopup(firebaseAuth, provider)
-    dispatch({
-      type : actionType.SET_USER,
-      user : providerData[0],
-    });
-  };
+    if (!user) {
+      const {
+        user : {refreshToken, providerData},
+      } = await signInWithPopup(firebaseAuth, provider)
+      dispatch({
+        type : actionType.SET_USER,
+        user : providerData[0],
+      });
+      localStorage.setItem('user', JSON.stringify(providerData[0]))
+    }
+  }
 
   return (
     <header className="fixed z-50 w-screen p-6 px-16">
@@ -58,7 +63,11 @@ const Header = () => {
               className="w-10 min-w-[40px] h-10 min-h[40px] drop-shadow-xl cursor-pointer rounded-full"
               alt="userProfile"
               onClick={login}
-            />            
+            />
+            <div className="w-40 bg-gray-50 shadow-xl rounded-lg flex flex-col absolute top-12 right-0 px-4 py-2">
+              <p>New Item</p>
+              <p>Logout</p>
+            </div>            
           </div>
         </div>
       </div>
